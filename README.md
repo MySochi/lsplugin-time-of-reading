@@ -16,3 +16,8 @@
 * `seconds` — количество секунд. **Объязательный.**
 * `only_minute` — выводить только минуты. **По умолчанию: false.**
 * `round_minute` — округлять к минуте. **По умолчанию: false.**
+
+#### Пример:
+Просто вставьте в нужное место шаблона (где определен объект топика) эту строчку:
+
+``{amount_minutes_seconds seconds=$oTopic->getTimeOfReading() only_minute=false round_minute=false}``
