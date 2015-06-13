@@ -41,6 +41,12 @@ class PluginTimereading extends Plugin
 
     public function Init()
     {
+        $oSmarty = $this->Viewer_GetSmartyObject();
 
+        // Добавляем директорию Smarty - плагинов
+        $oSmarty->addPluginsDir(dirname(__FILE__) . '/classes/modules/viewer/plugs');
+
+        // Добавляем предварительный фильтр спец. разметки
+//        $oSmarty->loadFilter('pre', 'markup');
     }
 }
