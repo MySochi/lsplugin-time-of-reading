@@ -22,7 +22,7 @@ function smarty_function_amount_minutes_seconds($aParams, &$oSmarty)
 
     $iSecondsParam = (empty($aParams['seconds'])) ? 0 : $aParams['seconds'];
     $bOnlyMinute = (!isset($aParams['only_minute'])) ? false : $aParams['only_minute'];
-    $bRoundMinute = (!isset($aParams['round_minute'])) ? true : $aParams['round_minute'];
+    $bRoundMinute = (!isset($aParams['round_minute'])) ? false : $aParams['round_minute'];
 
     require_once(Config::Get('path.root.engine') . '/modules/viewer/plugs/modifier.declension.php');
 
