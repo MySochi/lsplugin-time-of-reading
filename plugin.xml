@@ -7,7 +7,7 @@
 		<lang name="default">Gavka S.</lang>
 	</author>
 	<homepage>https://github.com/sgavka</homepage>
-	<version>0.9.0</version>
+	<version>0.9.1</version>
 	<requires>
 		<livestreet>1.0.3</livestreet>
 		<plugins>

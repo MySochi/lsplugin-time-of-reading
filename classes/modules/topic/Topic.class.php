@@ -14,10 +14,8 @@ class PluginTimereading_ModuleTopic extends PluginTimereading_Inherit_ModuleTopi
     public function CalculateTimeOfReading($oTopic)
     {
         $iSpeed = (Config::Get('plugin.timereading.speed')) ? Config::Get('plugin.timereading.speed') : 1200;
-        $iSpeed = $iSpeed / 60;
-        $bUseDelta = (Config::Get('plugin.timereading.use_delta')) ? Config::Get('plugin.timereading.use_delta') : true;
+        $bUseDelta = (Config::Get('plugin.timereading.use_delta') !== null) ? Config::Get('plugin.timereading.use_delta') : true;
         $iDelta = (Config::Get('plugin.timereading.delta')) ? Config::Get('plugin.timereading.delta') : 200;
-        $iDelta = $iDelta / 60;
 
         $sStripText = strip_tags($oTopic->getTextSource());
         $iCharCount = strlen(preg_replace('/\s/', '', $sStripText));
@@ -28,7 +26,7 @@ class PluginTimereading_ModuleTopic extends PluginTimereading_Inherit_ModuleTopi
             }
         }
 
-        return round($iCharCount / $iSpeed);
+        return round(($iCharCount / $iSpeed) * 60);
     }
 
     public function AddTimeOfReading($iTopicId, $iTime)
