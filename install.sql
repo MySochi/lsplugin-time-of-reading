@@ -1,1 +1,1 @@
-ALTER TABLE `prefix_topic` ADD COLUMN `time_of_reading` int(11);
+ALTER TABLE `prefix_topic` ADD COLUMN `topic_time_of_reading` int(11);

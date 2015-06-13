@@ -1,1 +1,1 @@
-ALTER TABLE `prefix_topic` DROP COLUMN `time_of_reading`;
+ALTER TABLE `prefix_topic` DROP COLUMN `topic_time_of_reading`;
