@@ -17,15 +17,20 @@ class PluginTimereading extends Plugin
         'module' => array(
             'ModuleTopic' => '_ModuleTopic',
         ),
+        'action' => array(
+            'ActionAdmin' => '_ActionAdmin',
+        ),
     );
 
     public function Activate()
     {
         if (!$this->isFieldExists('prefix_topic', 'topic_time_of_reading')) {
-            $this->ExportSQL(dirname(__FILE__) . '/install.sql');
+            $this->ExportSQL(dirname(__FILE__) . '/sql_dumps/install.sql');
         }
 
-        $this->PluginTimereading_Topic_CalculateAllTopics();
+        if (Config::Get('plugin.timereading.calculate_when_activate')) {
+            $this->PluginTimereading_Topic_CalculateAllTopics();
+        }
 
         return true;
     }
@@ -33,7 +38,7 @@ class PluginTimereading extends Plugin
     public function Deactivate()
     {
         if (Config::Get('plugin.timereading.full_deinstall')) {
-            $this->ExportSQL(dirname(__FILE__) . '/deinstall.sql');
+            $this->ExportSQL(dirname(__FILE__) . '/sql_dumps/deinstall.sql');
         }
 
         return true;
@@ -41,12 +46,7 @@ class PluginTimereading extends Plugin
 
     public function Init()
     {
-        $oSmarty = $this->Viewer_GetSmartyObject();
-
-        // Добавляем директорию Smarty - плагинов
-        $oSmarty->addPluginsDir(dirname(__FILE__) . '/classes/modules/viewer/plugs');
-
-        // Добавляем предварительный фильтр спец. разметки
-//        $oSmarty->loadFilter('pre', 'markup');
+        $this->Viewer_GetSmartyObject()->addPluginsDir(dirname(__FILE__) . '/classes/modules/viewer/plugs');
+        //$this->Viewer_GetSmartyObject()->loadPlugin('smarty_function_amount_minutes_seconds');
     }
 }

@@ -15,9 +15,8 @@
  * @param   Smarty $oSmarty
  * @return  string
  */
-function smarty_function_amount_minutes_seconds($aParams, &$oSmarty)
+function smarty_function_amount_minutes_seconds($aParams, $oSmarty)
 {
-    require_once(Config::Get('path.root.engine') . '/classes/Engine.class.php');
     $oEngine = Engine::getInstance();
 
     $iSecondsParam = (empty($aParams['seconds'])) ? 0 : $aParams['seconds'];
@@ -29,8 +28,10 @@ function smarty_function_amount_minutes_seconds($aParams, &$oSmarty)
     /**
      * Если указан другой язык, подгружаем его
      */
+    $initLang = false;
     if (isset($aParams['lang']) and $aParams['lang'] != $oEngine->Lang_GetLang()) {
         $oEngine->Lang_SetLang($aParams['lang']);
+        $initLang = $oEngine->Lang_GetLang();
     }
 
     $iSecondsInMinute = 60;
@@ -82,6 +83,10 @@ function smarty_function_amount_minutes_seconds($aParams, &$oSmarty)
                 $oEngine->Lang_Get('plugin.timereading.seconds', array('seconds' => $iSeconds)),
                 $oEngine->Lang_GetLang());
         }
+    }
+
+    if ($initLang) {
+        $oEngine->Lang_SetLang($initLang);
     }
 
     if ($bOnlyMinute) {

@@ -5,6 +5,9 @@ $config = array();
 // Full deinstall: drop the column `time_of_reading` in table `prefix_topic`
 $config['full_deinstall'] = false;
 
+// Calculate when plugin first time is activate
+$config['calculate_when_activate'] = false;
+
 //
 $config['table']['time_of_reading'] = 'topic_time_of_reading';
 
