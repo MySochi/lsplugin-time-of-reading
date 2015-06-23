@@ -50,6 +50,6 @@ class PluginTimereading_ModuleTopic extends PluginTimereading_Inherit_ModuleTopi
 
     public function GetAllTopics()
     {
-        return $this->oMapperTopic->GetAllTopics([]);
+        return $this->oMapperTopic->GetAllTopics(array());
     }
 }
