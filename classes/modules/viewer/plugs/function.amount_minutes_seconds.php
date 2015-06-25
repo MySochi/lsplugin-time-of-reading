@@ -30,8 +30,8 @@ function smarty_function_amount_minutes_seconds($aParams, $oSmarty)
      */
     $initLang = false;
     if (isset($aParams['lang']) and $aParams['lang'] != $oEngine->Lang_GetLang()) {
-        $oEngine->Lang_SetLang($aParams['lang']);
         $initLang = $oEngine->Lang_GetLang();
+        $oEngine->Lang_SetLang($aParams['lang']);
     }
 
     $iSecondsInMinute = 60;
