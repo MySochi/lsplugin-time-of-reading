@@ -1,0 +1,1 @@
+ALTER TABLE `prefix_topic` DROP COLUMN `topic_time_to_watch`;

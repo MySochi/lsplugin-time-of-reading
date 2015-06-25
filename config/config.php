@@ -18,4 +18,10 @@ $config['speed'] = 1200; // Default: 1200
 $config['use_delta'] = true; // Default: true
 $config['delta'] = 200; // Default: 200
 
+// how many seconds is "instantaneous reading"
+$config['read_instantly_limit'] = 15;
+
+// how many seconds is "instantaneous watching"
+$config['watch_instantly_limit'] = 15;
+
 return $config;
