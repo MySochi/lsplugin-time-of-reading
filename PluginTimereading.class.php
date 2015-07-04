@@ -24,12 +24,16 @@ class PluginTimereading extends Plugin
 
     public function Activate()
     {
-        if (!$this->isFieldExists('prefix_topic', 'topic_time_of_reading')) {
-            $this->ExportSQL(dirname(__FILE__) . '/sql_dumps/install.sql');
+        if (Config::Get('plugin.timereading.function.read_time')) {
+            if (!$this->isFieldExists('prefix_topic', 'topic_time_of_reading')) {
+                $this->ExportSQL(dirname(__FILE__) . '/sql_dumps/install.sql');
+            }
         }
 
-        if (!$this->isFieldExists('prefix_topic', 'topic_time_to_watch')) {
-            $this->ExportSQL(dirname(__FILE__) . '/sql_dumps/install_pro.sql');
+        if (Config::Get('plugin.timereading.function.watch_time')) {
+            if (!$this->isFieldExists('prefix_topic', 'topic_time_to_watch')) {
+                $this->ExportSQL(dirname(__FILE__) . '/sql_dumps/install_pro.sql');
+            }
         }
 
         if (Config::Get('plugin.timereading.calculate_when_activate')) {

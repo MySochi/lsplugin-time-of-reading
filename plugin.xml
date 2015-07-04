@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin>
 	<name>
-		<lang name="default">Time of reading</lang>
+		<lang name="default">Time of reading and watch</lang>
 	</name>
 	<author>
 		<lang name="default">Gavka S.</lang>
 	</author>
 	<homepage>https://github.com/sgavka</homepage>
-	<version>0.9.3</version>
+	<version>1.0.0</version>
 	<requires>
 		<livestreet>1.0.3</livestreet>
 		<plugins>
 		</plugins>
 	</requires>
 	<description>
-		<lang name="default">Calcule time of reading a topic.</lang>
+		<lang name="default">Calcule time of reading or/and to watch a topic.</lang>
 	</description>
 </plugin>

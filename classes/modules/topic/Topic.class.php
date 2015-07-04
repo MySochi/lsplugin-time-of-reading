@@ -43,12 +43,16 @@ class PluginTimereading_ModuleTopic extends PluginTimereading_Inherit_ModuleTopi
         $iCount = 0;
         foreach ($aTopicIds as $iId) {
             if ($oTopic = $this->Topic_GetTopicById($iId)) {
-                $iTime = $this->PluginTimereading_Topic_CalculateTimeOfReading($oTopic);
-                $iTimeVideo = $this->PluginTimereading_Topic_videoParser($oTopic);
+                if (Config::Get('plugin.timereading.function.read_time')) {
+                    $iTime = $this->PluginTimereading_Topic_CalculateTimeOfReading($oTopic);
+                    $bReading = $this->PluginTimereading_Topic_AddTimeOfReading($oTopic->getId(), $iTime);
+                }
+                if (Config::Get('plugin.timereading.function.watch_time')) {
+                    $iTimeVideo = $this->PluginTimereading_Topic_videoParser($oTopic);
+                    $bWatching = $this->PluginTimereading_Topic_AddTimeToWatch($oTopic->getId(), $iTimeVideo);
+                }
 
-                if ($this->PluginTimereading_Topic_AddTimeOfReading($oTopic->getId(), $iTime) ||
-                    $this->PluginTimereading_Topic_AddTimeToWatch($oTopic->getId(), $iTimeVideo)
-                ) {
+                if ($bReading || $bWatching) {
                     $iCount++;
                 }
             }
@@ -77,7 +81,7 @@ class PluginTimereading_ModuleTopic extends PluginTimereading_Inherit_ModuleTopi
 
     private function parseYoutube($sText)
     {
-        $sApiKey = 'AIzaSyDuwNRZvuGXr0o5eSiRLUUt8h16a8Uwjgc';
+        $sApiKey = Config::Get('plugin.timereading.video_api.youtube');
         $sRegex = '/<video>(?:http(?:s|):|)(?:\/\/|)(?:www\.|)youtu(?:\.|)be(?:-nocookie|)(?:\.com|)\/(?:e(?:mbed|)\/|v\/|watch\?(?:.+&|)v=|)([a-zA-Z0-9_\-]+?)(&.+)?<\/video>/Ui';
         preg_match_all($sRegex, $sText, $matches);
         $aVideoId = $matches[1];
