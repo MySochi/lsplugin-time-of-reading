@@ -8,6 +8,16 @@ class PluginTimereading_HookTimereading extends Hook
         $this->AddHook('topic_edit_after', 'CalculateTime', __CLASS__);
 
         $this->AddHook('template_admin_action_item', 'InjectAdmin');
+        foreach (Config::Get('plugin.timereading.hooks') as $sHook) {
+            $this->AddHook('template_' . $sHook, 'TimeToReadAndWatch');
+        }
+    }
+
+    public function TimeToReadAndWatch($aParam)
+    {
+        $this->Viewer_Assign('oTopic', $aParam['topic']);
+
+        return $this->Viewer_Fetch(Plugin::GetTemplatePath(__CLASS__) . 'inject.topic.show.info.tpl');
     }
 
     public function InjectAdmin()
@@ -19,7 +29,14 @@ class PluginTimereading_HookTimereading extends Hook
     {
         $oTopic = $aParam['oTopic'];
 
-        $iTime = $this->PluginTimereading_Topic_CalculateTimeOfReading($oTopic);
-        $this->PluginTimereading_Topic_AddTimeOfReading($oTopic->getId(), $iTime);
+        if (Config::Get('plugin.timereading.function.watch_time')) {
+            $iVideoTime = $this->PluginTimereading_Topic_videoParser($oTopic);
+            $this->PluginTimereading_Topic_AddTimeToWatch($oTopic->getId(), $iVideoTime);
+        }
+
+        if (Config::Get('plugin.timereading.function.read_time')) {
+            $iReadingTime = $this->PluginTimereading_Topic_CalculateTimeOfReading($oTopic);
+            $this->PluginTimereading_Topic_AddTimeOfReading($oTopic->getId(), $iReadingTime);
+        }
     }
 }

@@ -19,4 +19,22 @@ class PluginTimereading_ModuleTopic_MapperTopic extends PluginTimereading_Inheri
 
         return false;
     }
+
+    public function addTimeToWatch($iTopicId, $iTime)
+    {
+        $sql = "UPDATE " . Config::Get('db.table.topic') . "
+			SET
+				topic_time_to_watch = ?d
+			WHERE
+				topic_id = ?d
+		";
+        if ($this->oDb->query($sql,
+            $iTime,
+            $iTopicId)
+        ) {
+            return true;
+        }
+
+        return false;
+    }
 }

@@ -1,0 +1,1 @@
+ALTER TABLE `prefix_topic` ADD COLUMN `topic_time_to_watch` int(11);
