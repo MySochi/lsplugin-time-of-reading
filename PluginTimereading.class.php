@@ -24,19 +24,20 @@ class PluginTimereading extends Plugin
 
     public function Activate()
     {
-        if (Config::Get('plugin.timereading.function.read_time')) {
+        $aConfig = include dirname(__FILE__) . '/config/config.php';
+        if ($aConfig['function']['read_time']) {
             if (!$this->isFieldExists('prefix_topic', 'topic_time_of_reading')) {
                 $this->ExportSQL(dirname(__FILE__) . '/sql_dumps/install.sql');
             }
         }
 
-        if (Config::Get('plugin.timereading.function.watch_time')) {
+        if ($aConfig['function']['watch_time']) {
             if (!$this->isFieldExists('prefix_topic', 'topic_time_to_watch')) {
                 $this->ExportSQL(dirname(__FILE__) . '/sql_dumps/install_pro.sql');
             }
         }
 
-        if (Config::Get('plugin.timereading.calculate_when_activate')) {
+        if ($aConfig['calculate_when_activate']) {
             $this->PluginTimereading_Topic_CalculateAllTopics();
         }
 
@@ -46,11 +47,11 @@ class PluginTimereading extends Plugin
     public function Deactivate()
     {
         if (Config::Get('plugin.timereading.full_deinstall')) {
-            if (!$this->isFieldExists('prefix_topic', 'topic_time_of_reading')) {
+            if ($this->isFieldExists('prefix_topic', 'topic_time_of_reading')) {
                 $this->ExportSQL(dirname(__FILE__) . '/sql_dumps/deinstall.sql');
             }
 
-            if (!$this->isFieldExists('prefix_topic', 'topic_time_to_watch')) {
+            if ($this->isFieldExists('prefix_topic', 'topic_time_to_watch')) {
                 $this->ExportSQL(dirname(__FILE__) . '/sql_dumps/deinstall_pro.sql');
             }
         }
@@ -62,6 +63,5 @@ class PluginTimereading extends Plugin
     {
         $this->Viewer_GetSmartyObject()->addPluginsDir(dirname(__FILE__) . '/classes/modules/viewer/plugs');
         $this->Viewer_AppendStyle(Plugin::GetTemplateWebPath(__CLASS__) . 'css/style.css');
-        //$this->Viewer_GetSmartyObject()->loadPlugin('smarty_function_amount_minutes_seconds');
     }
 }
