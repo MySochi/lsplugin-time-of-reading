@@ -1,0 +1,1 @@
+<li><br/><a href="{router page="admin"}timereading">{$aLang.plugin.timereading.admin_list_calculate_time}</a></li>
